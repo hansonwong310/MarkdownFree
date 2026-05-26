@@ -938,15 +938,22 @@ html, body {
 }
 
 /* ==========================================================================
-   打印/导出PDF样式适配
+   打印/导出PDF样式适配 (使用标准 @page 边距，解决任何右侧溢出截断问题)
    ========================================================================== */
 @media print {
+  @page {
+    margin: 15mm 10mm !important; /* 浏览器级原生物理页边距 */
+  }
+
   html,
   body,
   #md-app-container,
   #md-main-layout,
   #md-scroll-container,
-  #md-content-wrapper {
+  #md-content-wrapper,
+  #md-content {
+    width: 100% !important;
+    max-width: 100% !important;
     height: auto !important;
     min-height: auto !important;
     max-height: none !important;
@@ -955,10 +962,9 @@ html, body {
     position: static !important;
     background-color: white !important;
     color: black !important;
-  }
-
-  body {
-    padding: 15mm 10mm !important; /* 给打印留出优雅的页边距 */
+    box-sizing: border-box !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
   
   #md-header,
@@ -972,14 +978,23 @@ html, body {
     display: none !important;
   }
   
-  #md-content-wrapper {
-    padding: 0 !important;
-  }
-  
   #md-content {
-    max-width: 100% !important;
     font-size: 11pt !important; /* 经典打印字号，更加适合纸张阅读 */
     line-height: 1.6 !important;
+  }
+
+  /* 彻底修复 Chromium 打印下 justify 导致行尾中英文混合标点及末尾文字溢出裁剪的 bug */
+  .markdown-body {
+    word-break: normal !important;
+    overflow-wrap: break-word !important;
+    box-sizing: border-box !important;
+  }
+
+  .markdown-body p {
+    text-align: left !important;
+    word-break: normal !important;
+    overflow-wrap: break-word !important;
+    box-sizing: border-box !important;
   }
   
   .comment-highlight {
