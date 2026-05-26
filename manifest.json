@@ -3,6 +3,11 @@
   "name": "MarkdownFree",
   "version": "1.0.0",
   "description": "极轻量、免服务器的 Markdown 渲染器与行内点评工具。支持大纲目录、中英字体独立设置、LaTeX 公式、Mermaid 图表，即装即用。",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
   "permissions": [
     "storage"
   ],
