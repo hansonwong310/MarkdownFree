@@ -1,0 +1,44 @@
+{
+  "manifest_version": 3,
+  "name": "MarkdownFree",
+  "version": "1.0.0",
+  "description": "极轻量、免服务器的 Markdown 渲染器与行内点评工具。支持大纲目录、中英字体独立设置、LaTeX 公式、Mermaid 图表，即装即用。",
+  "permissions": [
+    "storage"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "file://*/*.md",
+        "file://*/*.markdown",
+        "file://*/*.mdown",
+        "file://*/*.txt",
+        "http://*/*.md",
+        "http://*/*.markdown",
+        "https://*/*.md",
+        "https://*/*.markdown"
+      ],
+      "js": [
+        "assets/marked.min.js",
+        "assets/prism.js",
+        "assets/katex/katex.min.js",
+        "assets/mermaid.min.js",
+        "content.js"
+      ],
+      "css": [
+        "assets/prism.css",
+        "assets/katex/katex.min.css",
+        "viewer.css"
+      ],
+      "run_at": "document_end"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "assets/katex/fonts/*"
+      ],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
