@@ -941,9 +941,24 @@ html, body {
    打印/导出PDF样式适配
    ========================================================================== */
 @media print {
-  body {
+  html,
+  body,
+  #md-app-container,
+  #md-main-layout,
+  #md-scroll-container,
+  #md-content-wrapper {
+    height: auto !important;
+    min-height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    display: block !important;
+    position: static !important;
     background-color: white !important;
     color: black !important;
+  }
+
+  body {
+    padding: 15mm 10mm !important; /* 给打印留出优雅的页边距 */
   }
   
   #md-header,
@@ -957,28 +972,48 @@ html, body {
     display: none !important;
   }
   
-  #md-app-container {
-    background-color: white !important;
-    color: black !important;
-    display: block !important;
-  }
-  
-  #md-main-layout {
-    display: block !important;
-  }
-  
   #md-content-wrapper {
     padding: 0 !important;
-    display: block !important;
   }
   
   #md-content {
     max-width: 100% !important;
+    font-size: 11pt !important; /* 经典打印字号，更加适合纸张阅读 */
+    line-height: 1.6 !important;
   }
   
   .comment-highlight {
     background-color: transparent !important;
     border-bottom: none !important;
+    color: inherit !important;
+  }
+
+  /* 代码块打印排版优化 */
+  pre, code {
+    white-space: pre-wrap !important;
+    word-break: break-all !important;
+  }
+
+  pre {
+    background-color: #f8f9fa !important;
+    border: 1px solid #e9ecef !important;
+    color: #212529 !important;
+    page-break-inside: avoid;
+    padding: 12px !important;
+  }
+
+  /* 打印时避免标题与随后的内容在页尾折断 */
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+    page-break-inside: avoid;
+    color: black !important;
+    margin-top: 1.2em !important;
+    margin-bottom: 0.5em !important;
+  }
+
+  /* 避免图片、表格等大块在中间被截断 */
+  img, table, blockquote {
+    page-break-inside: avoid;
   }
 }
 
